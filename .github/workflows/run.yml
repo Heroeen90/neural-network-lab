@@ -1,0 +1,28 @@
+name: Train Neural Network
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: pip install numpy
+      
+      - name: Train Neural Network
+        run: python neural_network.py
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: training-results
+          path: results.txt
